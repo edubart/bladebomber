@@ -43,7 +43,7 @@ clean:
 distclean: clean
 	rm -rf libriv
 
-$(NAME).sqfs: $(NAME).elf *.png
+$(NAME).sqfs: $(NAME).elf *.png info.json
 	$(RIVEMU_EXEC) riv-mksqfs $^ $@ -comp $(COMP)
 
 $(NAME).elf: $(NAME).c *.h libriv

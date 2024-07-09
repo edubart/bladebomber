@@ -1,0 +1,15 @@
+{
+    "name": "Bladebomber",
+    "summary": "A 2D roguelike dungeon crawler where you fight monsters with blade and bombs",
+    "description": "How far can you go in the Dungeon?\n\nControls:\n\n    UP\/DOWN\/LEFT\/RIGHT - Walk\n    Z - Dash\n    X - Use blade\n    C - Use bomb\n\nThis game was made during RIVES game jam in pure C to demonstrate the RIV console C API",
+    "tags": ["action", "2d", "dungeon", "roguelike", "pixel art"],
+    "authors": [{
+        "name": "Eduardo Bart",
+        "link": "https://github.com/edubart"
+    }],
+    "links": [
+        "https://github.com/edubart/bladebomber",
+        "https://discord.com/channels/1207694461476409394/1260363035915059374",
+        "https://edubart.itch.io/bladebomber"
+    ]
+}
