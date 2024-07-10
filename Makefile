@@ -6,17 +6,17 @@ ifneq (,$(wildcard /usr/sbin/riv-run))
 	RIVEMU_RUN=riv-run
 	RIVEMU_EXEC=
 endif
-LIBRIV_PATH=libriv
-CFLAGS+=-Ilibriv -Llibriv
 ifeq ($(CROSS),y)
 	CFLAGS+=-Ilibriv -Llibriv -lriv
 	CFLAGS+=-Wall -Wextra
 	CFLAGS+=-march=rv64g -Og -g -rdynamic -fno-omit-frame-pointer -fno-strict-overflow -fno-strict-aliasing -std=c11
 	CFLAGS+=-Wl,--build-id=none,--sort-common
 	CC=riscv64-buildroot-linux-musl-gcc
+	STRIP=touch
 else
 	CC=$(RIVEMU_EXEC) gcc
-	CFLAGS=$(shell $(RIVEMU_EXEC) riv-opt-flags -Ospeed)
+	CFLAGS=$(shell $(RIVEMU_EXEC) riv-opt-flags -Ospeed --static-libriv)
+	STRIP=$(RIVEMU_EXEC) riv-strip
 endif
 
 build: $(NAME).sqfs
@@ -48,6 +48,7 @@ $(NAME).sqfs: $(NAME).elf *.png info.json
 
 $(NAME).elf: $(NAME).c *.h libriv
 	$(CC) $< -o $@ $(CFLAGS)
+	$(STRIP) $@
 
 libriv:
 	mkdir -p libriv
