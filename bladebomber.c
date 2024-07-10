@@ -421,7 +421,6 @@ void creature_draw(Creature* creature, u32 spr, i64 ox, i64 oy) {
 
 void creature_update(Creature *creature) {
   if (creature->die_frame > 0 && riv->frame >= creature->die_frame) {
-    end_frame = riv->frame;
     creature->thing.removed = true;
   }
 }
@@ -576,6 +575,7 @@ void player_attack_bomb(Player *player) {
 void player_update(Player *player) {
   creature_update(&player->creature);
   if (player->thing.removed) { // died
+    end_frame = riv->frame;
     return;
   }
 
