@@ -81,17 +81,4 @@ static recti riv_get_sprite_bbox(u32 n, u64 sps_id, i64 nx, i64 ny) {
   return (recti){minx - sx, miny - sy, maxx - minx + 1, maxy - miny + 1};
 }
 
-static void riv_panic(const char *msg) {
-  riv_printf("%s\n", msg);
-  exit(-1);
-}
-
-static void riv_assert(bool ok, const char *msg) {
-  if (!ok) {
-    riv_panic(msg);
-  }
-}
-
-#define trace riv_printf
-
 #endif

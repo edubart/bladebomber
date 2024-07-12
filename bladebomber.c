@@ -1022,7 +1022,9 @@ void load_map(u64 new_level) {
       }
     }
   }
-  riv_assert(main_player, "main player not found");
+  if (!main_player) {
+    riv_panic("main player not found");
+  }
   riv_printf("LEVEL %d\n", level);
 }
 
