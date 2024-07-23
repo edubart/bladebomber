@@ -53,32 +53,4 @@ static inline f64 distsqr_vec2(vec2 a, vec2 b) { return sum_vec2(sqr_vec2(sub_ve
 static inline recti expand_recti(recti r, i64 b) { return (recti){r.x - b, r.y - b, r.width + 2*b, r.height + 2*b}; }
 static inline bool overlaps_recti(recti a, recti b) { return a.x + a.width > b.x && b.x + b.width > a.x && a.y + a.height > b.y && b.y + b.height > a.y; }
 
-static recti riv_get_sprite_bbox(u32 n, u64 sps_id, i64 nx, i64 ny) {
-  riv_spritesheet* spritesheet = &riv->spritesheets[sps_id];
-  riv_image *image = &riv->images[spritesheet->image_id];
-  i64 pitch = image->width;
-  i64 ncols = pitch / spritesheet->cell_width;
-  i64 sx = (n % ncols)*spritesheet->cell_width;
-  i64 sy = (n / ncols)*spritesheet->cell_height;
-  i64 sw = spritesheet->cell_width * nx;
-  i64 sh = spritesheet->cell_height * ny;
-  i64 color_key = image->color_key;
-  i64 minx = sx+sw-1;
-  i64 miny = sy+sh-1;
-  i64 maxx = sx-1;
-  i64 maxy = sy-1;
-  u8 *pixels = image->pixels;
-  for (i64 y=sy;y<sy+sh;++y) {
-    for (i64 x=sx;x<sx+sw;++x) {
-      if (pixels[y*pitch + x] != color_key) {
-        if (x < minx) minx = x;
-        if (y < miny) miny = y;
-        if (x > maxx) maxx = x;
-        if (y > maxy) maxy = y;
-      }
-    }
-  }
-  return (recti){minx - sx, miny - sy, maxx - minx + 1, maxy - miny + 1};
-}
-
 #endif
